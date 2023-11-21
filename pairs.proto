@@ -1,0 +1,38 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+package pairs;
+
+message KeyValue {
+    int32 key = 1;
+    string value = 2;
+}
+
+message Key {
+    int32 key = 1;
+}
+
+message InsertResponse {
+    int32 result = 1;
+}
+
+message ID {
+    string id = 1;
+}
+
+message SearchResponse {
+    string result = 1;
+}
+
+message EndResponse {
+    int32 result = 1;
+}
+
+message Empty {}
+
+service PairsServer {
+    rpc Insert(KeyValue) returns (InsertResponse);
+    rpc Search(Key) returns (SearchResponse);
+    rpc Activation(ID) returns (google.protobuf.Empty);
+    rpc End(Empty) returns (EndResponse);
+}
