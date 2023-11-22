@@ -26,6 +26,10 @@ def End(stub):
 
 def main():
 
+    if(len(sys.argv) != 2):
+        print("Usage: python3 cln_par.py <port>")
+        sys.exit(0)
+
     port = sys.argv[1]
     channel = grpc.insecure_channel(port)
     stub = pairs_pb2_grpc.PairsServerStub(channel)

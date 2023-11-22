@@ -43,10 +43,22 @@ class PairsServer(pairs_pb2_grpc.PairsServerServicer):
         return pairs_pb2.EndResponse(result=0)
 
 def serve():
+
+    if(len(sys.argv) > 3 or len(sys.argv) < 1):
+        print("Usage: python3 svc_par.py <port> [flag]")
+        sys.exit(0)
+    
+    if(len(sys.argv) == 2):
+        port = sys.argv[1]
+
+    if(len(sys.argv) == 3):
+        port = sys.argv[1]
+        flag = sys.argv[2]
+
     stop_event = threading.Event()
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     pairs_pb2_grpc.add_PairsServerServicer_to_server(PairsServer(stop_event, sys.argv[1]), server)
-    server.add_insecure_port('[::]:' + sys.argv[1])
+    server.add_insecure_port('[::]:' + port)
     server.start()
     stop_event.wait()
     server.stop(0)

@@ -30,6 +30,11 @@ class CentralServer(pairs_pb2_grpc.CentralServerServicer):
         return pairs_pb2.EndResponse(result=len(self.keys_dict))
 
 def serve():
+
+    if(len(sys.argv) != 2):
+        print("Usage: python3 svc_cen.py <port>")
+        sys.exit(0)
+
     stop_event = threading.Event()
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     pairs_pb2_grpc.add_CentralServerServicer_to_server(CentralServer(stop_event), server)

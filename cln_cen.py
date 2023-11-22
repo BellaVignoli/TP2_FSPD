@@ -15,6 +15,10 @@ def termination(stub):
 
 def main():
 
+    if(len(sys.argv) != 2):
+        print("Usage: python3 cln_cen.py <port>")
+        sys.exit(0)
+
     port = sys.argv[1]
     channel = grpc.insecure_channel(port)
     stub = pairs_pb2_grpc.CentralServerStub(channel)
