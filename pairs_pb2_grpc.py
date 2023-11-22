@@ -2,8 +2,134 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 import pairs_pb2 as pairs__pb2
+
+
+class CentralServerStub(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.Register = channel.unary_unary(
+                '/pairs.CentralServer/Register',
+                request_serializer=pairs__pb2.ServerKey.SerializeToString,
+                response_deserializer=pairs__pb2.KeyCount.FromString,
+                )
+        self.Map = channel.unary_unary(
+                '/pairs.CentralServer/Map',
+                request_serializer=pairs__pb2.Key.SerializeToString,
+                response_deserializer=pairs__pb2.ServerID.FromString,
+                )
+        self.End = channel.unary_unary(
+                '/pairs.CentralServer/End',
+                request_serializer=pairs__pb2.Empty.SerializeToString,
+                response_deserializer=pairs__pb2.EndResponse.FromString,
+                )
+
+
+class CentralServerServicer(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def Register(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Map(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def End(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_CentralServerServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'Register': grpc.unary_unary_rpc_method_handler(
+                    servicer.Register,
+                    request_deserializer=pairs__pb2.ServerKey.FromString,
+                    response_serializer=pairs__pb2.KeyCount.SerializeToString,
+            ),
+            'Map': grpc.unary_unary_rpc_method_handler(
+                    servicer.Map,
+                    request_deserializer=pairs__pb2.Key.FromString,
+                    response_serializer=pairs__pb2.ServerID.SerializeToString,
+            ),
+            'End': grpc.unary_unary_rpc_method_handler(
+                    servicer.End,
+                    request_deserializer=pairs__pb2.Empty.FromString,
+                    response_serializer=pairs__pb2.EndResponse.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'pairs.CentralServer', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+
+
+ # This class is part of an EXPERIMENTAL API.
+class CentralServer(object):
+    """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def Register(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/pairs.CentralServer/Register',
+            pairs__pb2.ServerKey.SerializeToString,
+            pairs__pb2.KeyCount.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Map(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/pairs.CentralServer/Map',
+            pairs__pb2.Key.SerializeToString,
+            pairs__pb2.ServerID.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def End(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/pairs.CentralServer/End',
+            pairs__pb2.Empty.SerializeToString,
+            pairs__pb2.EndResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
 
 class PairsServerStub(object):
@@ -28,7 +154,7 @@ class PairsServerStub(object):
         self.Activation = channel.unary_unary(
                 '/pairs.PairsServer/Activation',
                 request_serializer=pairs__pb2.ID.SerializeToString,
-                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                response_deserializer=pairs__pb2.KeyCount.FromString,
                 )
         self.End = channel.unary_unary(
                 '/pairs.PairsServer/End',
@@ -80,7 +206,7 @@ def add_PairsServerServicer_to_server(servicer, server):
             'Activation': grpc.unary_unary_rpc_method_handler(
                     servicer.Activation,
                     request_deserializer=pairs__pb2.ID.FromString,
-                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                    response_serializer=pairs__pb2.KeyCount.SerializeToString,
             ),
             'End': grpc.unary_unary_rpc_method_handler(
                     servicer.End,
@@ -144,7 +270,7 @@ class PairsServer(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/pairs.PairsServer/Activation',
             pairs__pb2.ID.SerializeToString,
-            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            pairs__pb2.KeyCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

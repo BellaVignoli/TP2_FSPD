@@ -11,30 +11,39 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bpairs.proto\x12\x05pairs\x1a\x1bgoogle/protobuf/empty.proto\"&\n\x08KeyValue\x12\x0b\n\x03key\x18\x01 \x01(\x05\x12\r\n\x05value\x18\x02 \x01(\t\"\x12\n\x03Key\x12\x0b\n\x03key\x18\x01 \x01(\x05\" \n\x0eInsertResponse\x12\x0e\n\x06result\x18\x01 \x01(\x05\"\x10\n\x02ID\x12\n\n\x02id\x18\x01 \x01(\t\" \n\x0eSearchResponse\x12\x0e\n\x06result\x18\x01 \x01(\t\"\x1d\n\x0b\x45ndResponse\x12\x0e\n\x06result\x18\x01 \x01(\x05\"\x07\n\x05\x45mpty2\xc6\x01\n\x0bPairsServer\x12\x30\n\x06Insert\x12\x0f.pairs.KeyValue\x1a\x15.pairs.InsertResponse\x12+\n\x06Search\x12\n.pairs.Key\x1a\x15.pairs.SearchResponse\x12/\n\nActivation\x12\t.pairs.ID\x1a\x16.google.protobuf.Empty\x12\'\n\x03\x45nd\x12\x0c.pairs.Empty\x1a\x12.pairs.EndResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bpairs.proto\x12\x05pairs\"&\n\x08KeyValue\x12\x0b\n\x03key\x18\x01 \x01(\x05\x12\r\n\x05value\x18\x02 \x01(\t\"\x12\n\x03Key\x12\x0b\n\x03key\x18\x01 \x01(\x05\" \n\x0eInsertResponse\x12\x0e\n\x06result\x18\x01 \x01(\x05\"\x10\n\x02ID\x12\n\n\x02id\x18\x01 \x01(\t\" \n\x0eSearchResponse\x12\x0e\n\x06result\x18\x01 \x01(\t\"\x1d\n\x0b\x45ndResponse\x12\x0e\n\x06result\x18\x01 \x01(\x05\"\x07\n\x05\x45mpty\"-\n\tServerKey\x12\x12\n\nservice_id\x18\x01 \x01(\t\x12\x0c\n\x04keys\x18\x02 \x03(\x05\"\x19\n\x08KeyCount\x12\r\n\x05\x63ount\x18\x01 \x01(\x05\"\x16\n\x08ServerID\x12\n\n\x02id\x18\x01 \x01(\t\"%\n\x13TerminationResponse\x12\x0e\n\x06result\x18\x01 \x01(\x05\x32\x8b\x01\n\rCentralServer\x12-\n\x08Register\x12\x10.pairs.ServerKey\x1a\x0f.pairs.KeyCount\x12\"\n\x03Map\x12\n.pairs.Key\x1a\x0f.pairs.ServerID\x12\'\n\x03\x45nd\x12\x0c.pairs.Empty\x1a\x12.pairs.EndResponse2\xbf\x01\n\x0bPairsServer\x12\x30\n\x06Insert\x12\x0f.pairs.KeyValue\x1a\x15.pairs.InsertResponse\x12+\n\x06Search\x12\n.pairs.Key\x1a\x15.pairs.SearchResponse\x12(\n\nActivation\x12\t.pairs.ID\x1a\x0f.pairs.KeyCount\x12\'\n\x03\x45nd\x12\x0c.pairs.Empty\x1a\x12.pairs.EndResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'pairs_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
-  _globals['_KEYVALUE']._serialized_start=51
-  _globals['_KEYVALUE']._serialized_end=89
-  _globals['_KEY']._serialized_start=91
-  _globals['_KEY']._serialized_end=109
-  _globals['_INSERTRESPONSE']._serialized_start=111
-  _globals['_INSERTRESPONSE']._serialized_end=143
-  _globals['_ID']._serialized_start=145
-  _globals['_ID']._serialized_end=161
-  _globals['_SEARCHRESPONSE']._serialized_start=163
-  _globals['_SEARCHRESPONSE']._serialized_end=195
-  _globals['_ENDRESPONSE']._serialized_start=197
-  _globals['_ENDRESPONSE']._serialized_end=226
-  _globals['_EMPTY']._serialized_start=228
-  _globals['_EMPTY']._serialized_end=235
-  _globals['_PAIRSSERVER']._serialized_start=238
-  _globals['_PAIRSSERVER']._serialized_end=436
+  _globals['_KEYVALUE']._serialized_start=22
+  _globals['_KEYVALUE']._serialized_end=60
+  _globals['_KEY']._serialized_start=62
+  _globals['_KEY']._serialized_end=80
+  _globals['_INSERTRESPONSE']._serialized_start=82
+  _globals['_INSERTRESPONSE']._serialized_end=114
+  _globals['_ID']._serialized_start=116
+  _globals['_ID']._serialized_end=132
+  _globals['_SEARCHRESPONSE']._serialized_start=134
+  _globals['_SEARCHRESPONSE']._serialized_end=166
+  _globals['_ENDRESPONSE']._serialized_start=168
+  _globals['_ENDRESPONSE']._serialized_end=197
+  _globals['_EMPTY']._serialized_start=199
+  _globals['_EMPTY']._serialized_end=206
+  _globals['_SERVERKEY']._serialized_start=208
+  _globals['_SERVERKEY']._serialized_end=253
+  _globals['_KEYCOUNT']._serialized_start=255
+  _globals['_KEYCOUNT']._serialized_end=280
+  _globals['_SERVERID']._serialized_start=282
+  _globals['_SERVERID']._serialized_end=304
+  _globals['_TERMINATIONRESPONSE']._serialized_start=306
+  _globals['_TERMINATIONRESPONSE']._serialized_end=343
+  _globals['_CENTRALSERVER']._serialized_start=346
+  _globals['_CENTRALSERVER']._serialized_end=485
+  _globals['_PAIRSSERVER']._serialized_start=488
+  _globals['_PAIRSSERVER']._serialized_end=679
 # @@protoc_insertion_point(module_scope)

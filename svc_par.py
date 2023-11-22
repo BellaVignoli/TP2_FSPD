@@ -1,12 +1,16 @@
 from concurrent import futures
 import grpc
+import socket
+import threading
 import sys
 import pairs_pb2
 import pairs_pb2_grpc
 
 class PairsServer(pairs_pb2_grpc.PairsServerServicer):
-    def __init__(self):
+    def __init__(self, stop_event, address):
         self.pairs = {}
+        self.stop_event = stop_event
+        self.address = address
 
     def Insert(self, request, context):
         key = request.key
@@ -26,22 +30,26 @@ class PairsServer(pairs_pb2_grpc.PairsServerServicer):
 
     def Activation(self, request, context):
         # Lógica de ativação aqui
-        return pairs_pb2.Resposta(result=0)
+        if(len(sys.argv) > 2):
+            channel = grpc.insecure_channel(request.id)
+            stub = pairs_pb2_grpc.CentralServerStub(channel)
+            response = stub.Register(pairs_pb2.ServerKey(service_id=f"{socket.getfqdn()}:{self.address}", keys=self.pairs.keys()))
+            return pairs_pb2.KeyCount(count=response.count)
+        return pairs_pb2.KeyCount(count=0)
 
     def End(self, request, context):
         # Lógica de término aqui
-        return pairs_pb2.Resposta(EndResponse=0)
+        self.stop_event.set()
+        return pairs_pb2.EndResponse(result=0)
 
-def serve(port):
+def serve():
+    stop_event = threading.Event()
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    pairs_pb2_grpc.add_PairsServerServicer_to_server(PairsServer(), server)
-    server.add_insecure_port('[::]:' + port)
+    pairs_pb2_grpc.add_PairsServerServicer_to_server(PairsServer(stop_event, sys.argv[1]), server)
+    server.add_insecure_port('[::]:' + sys.argv[1])
     server.start()
-    server.wait_for_termination()
+    stop_event.wait()
+    server.stop(0)
 
 if __name__ == '__main__':
-    if len(sys.argv) > 3 or len(sys.argv) < 2:
-        print("Erro")
-        sys.exit(1)
-    port = sys.argv[1]
-    serve(port)
+    serve()

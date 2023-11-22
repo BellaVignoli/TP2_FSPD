@@ -14,10 +14,10 @@ def search(stub, key):
     response = stub.Search(request)
     return response.result
 
-def Activation(stub, id):
+def activation(stub, id):
     request = pairs_pb2.ID(id=id)
     response = stub.Activation(request)
-    return response.result
+    return response.count
 
 def End(stub):
     request = pairs_pb2.Empty()
@@ -25,9 +25,6 @@ def End(stub):
     return response.result
 
 def main():
-    if len(sys.argv) != 2:
-        print("Erro")
-        sys.exit(1)
 
     port = sys.argv[1]
     channel = grpc.insecure_channel(port)
@@ -46,7 +43,7 @@ def main():
                 print(result)
             elif command.startswith("A,"):
                 _, id = command.split(",", 1)
-                result = Activation(stub, id)
+                result = activation(stub, id)
                 print(result)
             elif command == "T":
                 result = End(stub)

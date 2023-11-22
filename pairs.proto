@@ -1,5 +1,4 @@
 syntax = "proto3";
-import "google/protobuf/empty.proto";
 
 package pairs;
 
@@ -30,9 +29,32 @@ message EndResponse {
 
 message Empty {}
 
+message ServerKey {
+    string service_id = 1;
+    repeated int32 keys = 2;
+}
+
+message KeyCount {
+    int32 count = 1;
+}
+
+message ServerID{
+    string id = 1;
+}
+
+message TerminationResponse {
+    int32 result = 1;
+}
+
+service CentralServer {
+    rpc Register(ServerKey) returns (KeyCount);
+    rpc Map(Key) returns (ServerID);
+    rpc End(Empty) returns (EndResponse);
+}
+
 service PairsServer {
     rpc Insert(KeyValue) returns (InsertResponse);
     rpc Search(Key) returns (SearchResponse);
-    rpc Activation(ID) returns (google.protobuf.Empty);
+    rpc Activation(ID) returns (KeyCount);
     rpc End(Empty) returns (EndResponse);
 }
