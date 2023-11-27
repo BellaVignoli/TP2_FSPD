@@ -27,6 +27,7 @@ class CentralServer(pairs_pb2_grpc.CentralServerServicer):
     def End(self, request, context):
         self.stop_event.set()
         # Lógica de término aqui
+        print("oi")
         return pairs_pb2.EndResponse(result=len(self.keys_dict))
 
 def serve():
@@ -38,7 +39,7 @@ def serve():
     stop_event = threading.Event()
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     pairs_pb2_grpc.add_CentralServerServicer_to_server(CentralServer(stop_event), server)
-    server.add_insecure_port('[::]:' + sys.argv[1])
+    server.add_insecure_port(f"0.0.0.0:{sys.argv[1]}")
     server.start()
     stop_event.wait()
     server.stop(0)

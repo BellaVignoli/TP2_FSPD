@@ -28,16 +28,14 @@ def main():
             command = input().strip()
             if command.startswith("C,"):
                 _, key = command.split(",", 1)
-                channel = grpc.insecure_channel(port)
-                stub = pairs_pb2_grpc.CentralServerStub(channel)
                 service_id = map(stub, int(key))
                 if service_id == "":
                     continue
                 print(f"{service_id}: ", end="")
-                channel = grpc.insecure_channel(service_id)
-                stub = pairs_pb2_grpc.PairsServerStub(channel)
+                channel_content = grpc.insecure_channel(service_id)
+                stub_content = pairs_pb2_grpc.PairsServerStub(channel_content)
                 request = pairs_pb2.Key(key=int(key))
-                response = stub.Search(request)
+                response = stub_content.Search(request)
                 print(response.result)
 
             elif command == "T":

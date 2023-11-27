@@ -58,7 +58,7 @@ def serve():
     stop_event = threading.Event()
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     pairs_pb2_grpc.add_PairsServerServicer_to_server(PairsServer(stop_event, sys.argv[1]), server)
-    server.add_insecure_port('[::]:' + port)
+    server.add_insecure_port(f'0.0.0.0:{port}')
     server.start()
     stop_event.wait()
     server.stop(0)
