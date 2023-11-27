@@ -17,4 +17,4 @@ pairs.py: pairs.proto
 	python3 -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. pairs.proto
 
 clean:
-	rm -f *_pb2.py *_pb2_grpc.py
+	rm -rf pairs_pb2.py pairs_pb2_grpc.py __pycache__ *.pyc
